@@ -1,9 +1,9 @@
-export default function InputField({
-    type = "text",
+export default function TextField({
     label,
     value,
     setValue,
     error,
+    rows = 10,
     ...props
 }) {
     const id = crypto.randomUUID();
@@ -12,10 +12,9 @@ export default function InputField({
         <div className="mb-3">
             {label && <label htmlFor={id}>{label}</label>}
 
-            <input
-                type={type}
+            <textarea
                 className={`form-control ${error ? "is-invalid" : ""}`}
-                id={id}
+                rows={rows}
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 {...props}
