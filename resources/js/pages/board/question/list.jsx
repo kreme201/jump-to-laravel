@@ -1,10 +1,46 @@
 import BaseLayout from "@/layouts/BaseLayout";
-import { Link } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
 import dayjs from "@/libs/dayjs";
 
-export default function ({ auth, questions }) {
+export default function ({ auth, questions, search }) {
+    const { data, setData } = useForm({
+        search: search || "",
+    });
+
     return (
         <BaseLayout user={auth.user}>
+            <div className="row my-3">
+                <div className="col-6">
+                    <Link
+                        href={route("board.question.create")}
+                        className="btn btn-primary"
+                    >
+                        질문 등록하기
+                    </Link>
+                </div>
+                <div className="col-6">
+                    <form>
+                        <div className="input-group">
+                            <input
+                                type="search"
+                                name="search"
+                                className="form-control"
+                                value={data.search}
+                                onChange={(e) =>
+                                    setData("search", e.target.value)
+                                }
+                            />
+                            <button
+                                type="submit"
+                                className="btn btn-outline-secondary"
+                            >
+                                찾기
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <table className="table">
                 <thead>
                     <tr className="text-center table-dark">
@@ -62,13 +98,6 @@ export default function ({ auth, questions }) {
                     </li>
                 ))}
             </ul>
-
-            <Link
-                href={route("board.question.create")}
-                className="btn btn-primary"
-            >
-                질문 등록하기
-            </Link>
         </BaseLayout>
     );
 }
