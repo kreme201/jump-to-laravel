@@ -1,12 +1,10 @@
-import Layout from "@/components/Layout";
+import BaseLayout from "@/layouts/BaseLayout";
 import { Link } from "@inertiajs/react";
 import dayjs from "@/libs/dayjs";
 
 export default function ({ auth, questions }) {
-    console.log(questions);
-
     return (
-        <Layout user={auth.user}>
+        <BaseLayout user={auth.user}>
             <table className="table">
                 <thead>
                     <tr className="text-center table-dark">
@@ -34,6 +32,12 @@ export default function ({ auth, questions }) {
                                 >
                                     {question.subject}
                                 </Link>
+
+                                {question.answers_count > 0 && (
+                                    <span className="text-danger small mx-2">
+                                        {question.answers_count}
+                                    </span>
+                                )}
                             </td>
                             <td>{question.user.name}</td>
                             <td>{dayjs(question.created_at).fromNow()}</td>
@@ -43,8 +47,11 @@ export default function ({ auth, questions }) {
             </table>
 
             <ul className="pagination justify-content-center">
-                {questions.links.map((link) => (
-                    <li className={`page-item ${!link.url ? "disabled" : ""}`}>
+                {questions.links.map((link, idx) => (
+                    <li
+                        key={idx}
+                        className={`page-item ${!link.url ? "disabled" : ""}`}
+                    >
                         <Link
                             href={link?.url || "#"}
                             className={`page-link ${
@@ -62,6 +69,6 @@ export default function ({ auth, questions }) {
             >
                 질문 등록하기
             </Link>
-        </Layout>
+        </BaseLayout>
     );
 }

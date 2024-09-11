@@ -10,7 +10,7 @@ class BoardQuestionDetailViewAction extends Controller
 {
     public function __invoke(Request $request, Question $question)
     {
-        $question->load('user:id,name');
+        $question->load('user:id,name')->load('answers.user:id,name');
         return $this->view('board.question.view', compact('question'));
     }
 }

@@ -1,9 +1,9 @@
-import Layout from "@/components/Layout.jsx";
+import BaseLayout from "@/layouts/BaseLayout.jsx";
 
 export default function ({ auth }) {
     return (
-        <Layout user={auth.user}>
+        <BaseLayout user={auth.user}>
             <h2>Hello World</h2>
-        </Layout>
+        </BaseLayout>
     );
 }

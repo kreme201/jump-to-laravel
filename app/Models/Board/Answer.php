@@ -6,13 +6,13 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Question extends Model
+class Answer extends Model
 {
     use HasFactory;
-    protected $table = 'board_questions';
+
+    protected $table = 'board_answers';
 
     protected $fillable = [
-        'subject',
         'content',
     ];
 
@@ -21,8 +21,8 @@ class Question extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function answers()
+    public function question()
     {
-        return $this->hasMany(Answer::class);
+        return $this->belongsTo(Question::class);
     }
 }

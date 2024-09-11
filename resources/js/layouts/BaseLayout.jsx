@@ -1,6 +1,6 @@
 import { Link } from "@inertiajs/react";
 
-export default function Layout({ user = null, children }) {
+export default function BaseLayout({ user = null, children }) {
     return (
         <>
             <header>

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class BoardQuestionFormViewAction extends Controller
 {
-    public function __invoke(Request $request, ?Question $question)
+    public function __invoke(Request $request, ?Question $question = null)
     {
         return $this->view('board.question.form', compact('question'));
     }

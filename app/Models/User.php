@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Board\Answer;
 use App\Models\Board\Question;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -49,5 +50,10 @@ class User extends Authenticatable
     public function questions()
     {
         return $this->hasMany(Question::class);
+    }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
     }
 }

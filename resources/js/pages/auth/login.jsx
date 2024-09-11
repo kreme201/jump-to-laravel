@@ -1,5 +1,5 @@
 import InputField from "@/components/fields/InputField";
-import Layout from "@/components/Layout";
+import BaseLayout from "@/layouts/BaseLayout";
 import PrimaryButton from "@/components/PrimaryButton";
 import { useForm } from "@inertiajs/react";
 
@@ -19,7 +19,7 @@ export default function () {
         });
     };
     return (
-        <Layout>
+        <BaseLayout>
             <h5 className="my-3 border-bottom pb-2">로그인</h5>
 
             <form method="post" onSubmit={handleSubmit}>
@@ -39,6 +39,6 @@ export default function () {
                 />
                 <PrimaryButton type="submit">로그인</PrimaryButton>
             </form>
-        </Layout>
+        </BaseLayout>
     );
 }

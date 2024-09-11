@@ -10,7 +10,7 @@ class BoardQuestionListViewAction extends Controller
 {
     public function __invoke(Request $request)
     {
-        $questions = Question::with('user:id,name')->latest()->paginate(10)->onEachSide(1);
+        $questions = Question::with('user:id,name')->withCount('answers')->latest()->paginate(10)->onEachSide(1);
 
         return $this->view('board.question.list', compact('questions'));
     }
