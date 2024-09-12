@@ -4,6 +4,8 @@ import BaseLayout from "@/layouts/BaseLayout";
 import PrimaryButton from "@/components/PrimaryButton";
 import dayjs from "@/libs/dayjs";
 import { Link, useForm } from "@inertiajs/react";
+import EditorView from "@/components/EditorView";
+import EditorField from "@/components/fields/EditorField";
 
 export default function ({ auth, question }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -30,11 +32,8 @@ export default function ({ auth, question }) {
 
             <div className="card my-3">
                 <div className="card-body">
-                    <div
-                        className="card-text"
-                        style={{ whiteSpace: "pre-line" }}
-                    >
-                        {question.content}
+                    <div className="card-text">
+                        <EditorView content={question.content} />
                     </div>
                     <div className="d-flex justify-content-end">
                         {question.updated_at > question.created_at && (
@@ -104,11 +103,8 @@ export default function ({ auth, question }) {
             {question.answers.map((answer) => (
                 <div key={answer.id} className="card my-3">
                     <div className="card-body">
-                        <div
-                            className="card-text"
-                            style={{ whiteSpace: "pre-line" }}
-                        >
-                            {answer.content}
+                        <div className="card-text">
+                            <EditorView content={answer.content} />
                         </div>
                         <div className="d-flex justify-content-end">
                             {answer.updated_at > answer.created_at && (
@@ -170,10 +166,11 @@ export default function ({ auth, question }) {
             ))}
 
             <form method="post" className="my-3" onSubmit={handleSubmit}>
-                <TextField
+                <EditorField
                     value={data.content}
                     setValue={(value) => setData("content", value)}
                     error={errors.content}
+                    height={300}
                 />
                 <PrimaryButton type="submit">답변등록</PrimaryButton>
             </form>
