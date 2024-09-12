@@ -3,7 +3,6 @@ import TextField from "@/components/fields/TextField";
 import BaseLayout from "@/layouts/BaseLayout";
 import PrimaryButton from "@/components/PrimaryButton";
 import { Link, useForm } from "@inertiajs/react";
-import EditorField from "@/components/fields/EditorField";
 
 export default function ({ auth, question = null }) {
     const { data, setData, post, put, processing, errors, reset } = useForm({
@@ -32,7 +31,7 @@ export default function ({ auth, question = null }) {
                     setValue={(value) => setData("subject", value)}
                     error={errors.subject}
                 />
-                <EditorField
+                <TextField
                     label="내용"
                     value={data.content}
                     setValue={(value) => setData("content", value)}

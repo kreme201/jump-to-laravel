@@ -4,8 +4,7 @@ import BaseLayout from "@/layouts/BaseLayout";
 import PrimaryButton from "@/components/PrimaryButton";
 import dayjs from "@/libs/dayjs";
 import { Link, useForm } from "@inertiajs/react";
-import EditorView from "@/components/EditorView";
-import EditorField from "@/components/fields/EditorField";
+import { marked } from "marked";
 
 export default function ({ auth, question }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -32,9 +31,12 @@ export default function ({ auth, question }) {
 
             <div className="card my-3">
                 <div className="card-body">
-                    <div className="card-text">
-                        <EditorView content={question.content} />
-                    </div>
+                    <div
+                        className="card-text"
+                        dangerouslySetInnerHTML={{
+                            __html: marked.parse(question.content),
+                        }}
+                    />
                     <div className="d-flex justify-content-end">
                         {question.updated_at > question.created_at && (
                             <CardBadge
@@ -103,9 +105,12 @@ export default function ({ auth, question }) {
             {question.answers.map((answer) => (
                 <div key={answer.id} className="card my-3">
                     <div className="card-body">
-                        <div className="card-text">
-                            <EditorView content={answer.content} />
-                        </div>
+                        <div
+                            className="card-text"
+                            dangerouslySetInnerHTML={{
+                                __html: marked.parse(answer.content),
+                            }}
+                        />
                         <div className="d-flex justify-content-end">
                             {answer.updated_at > answer.created_at && (
                                 <CardBadge
@@ -166,7 +171,7 @@ export default function ({ auth, question }) {
             ))}
 
             <form method="post" className="my-3" onSubmit={handleSubmit}>
-                <EditorField
+                <TextField
                     value={data.content}
                     setValue={(value) => setData("content", value)}
                     error={errors.content}

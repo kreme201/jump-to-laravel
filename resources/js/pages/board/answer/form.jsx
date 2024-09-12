@@ -1,7 +1,7 @@
 import BaseLayout from "@/layouts/BaseLayout";
 import PrimaryButton from "@/components/PrimaryButton";
 import { Link, useForm } from "@inertiajs/react";
-import EditorField from "@/components/fields/EditorField";
+import TextField from "@/components/fields/TextField";
 
 export default function ({ auth, question, answer }) {
     const { data, setData, put, processing, errors, reset } = useForm({
@@ -18,7 +18,7 @@ export default function ({ auth, question, answer }) {
             <h5 className="my-3 border-bottom pb-2">답변 수정</h5>
 
             <form method="post" className="my-3" onSubmit={handleSubmit}>
-                <EditorField
+                <TextField
                     value={data.content}
                     setValue={(value) => setData("content", value)}
                     error={errors.content}
