@@ -25,4 +25,9 @@ class Question extends Model
     {
         return $this->hasMany(Answer::class);
     }
+
+    public function votes()
+    {
+        return $this->belongsToMany(User::class, 'board_question_votes');
+    }
 }

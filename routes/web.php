@@ -6,11 +6,13 @@ use App\Http\Controllers\Auth\AuthLogoutStoreAction;
 use App\Http\Controllers\Board\Answer\BoardAnswerDeleteAction;
 use App\Http\Controllers\Board\Answer\BoardAnswerFormViewAction;
 use App\Http\Controllers\Board\Answer\BoardAnswerStoreAction;
+use App\Http\Controllers\Board\Answer\BoardAnswerVoteStoreAction;
 use App\Http\Controllers\Board\Question\BoardQuestionDeleteAction;
 use App\Http\Controllers\Board\Question\BoardQuestionDetailViewAction;
 use App\Http\Controllers\Board\Question\BoardQuestionFormViewAction;
 use App\Http\Controllers\Board\Question\BoardQuestionListViewAction;
 use App\Http\Controllers\Board\Question\BoardQuestionStoreAction;
+use App\Http\Controllers\Board\Question\BoardQuestionVoteStoreAction;
 use App\Http\Controllers\User\UserRegisterStoreAction;
 use App\Http\Controllers\User\UserRegisterViewAction;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +36,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('board/create', BoardQuestionStoreAction::class)->name('board.question.store');
     Route::post('board/{question}/answer/create', BoardAnswerStoreAction::class)->name('board.answer.store');
+    Route::post('board/{question}/vote', BoardQuestionVoteStoreAction::class)->name('board.question.vote');
+    Route::post('board/{question}/{answer}/vote', BoardAnswerVoteStoreAction::class)->name('board.answer.vote');
 
     Route::put('board/{question}/edit', BoardQuestionStoreAction::class)->name('board.question.edit.store');
     Route::put('board/{question}/{answer}', BoardAnswerStoreAction::class)->name('board.answer.edit.store');

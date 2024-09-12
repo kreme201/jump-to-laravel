@@ -49,28 +49,45 @@ export default function ({ auth, question }) {
                             content={dayjs(question.created_at).fromNow()}
                         />
                     </div>
-                    {question.user_id === auth.user.id && (
-                        <div className="my-3">
-                            <Link
-                                href={route("board.question.edit", question.id)}
-                                className="btn btn-sm btn-outline-secondary"
-                            >
-                                수정
-                            </Link>
-                            <Link
-                                className="btn btn-sm btn-outline-danger mx-2"
-                                href={route(
-                                    "board.question.delete",
-                                    question.id
-                                )}
-                                as="button"
-                                method="delete"
-                                onClick={confirmDelete}
-                            >
-                                삭제
-                            </Link>
-                        </div>
-                    )}
+                    <div className="my-3">
+                        {question.user_id === auth.user.id && (
+                            <>
+                                <Link
+                                    href={route(
+                                        "board.question.edit",
+                                        question.id
+                                    )}
+                                    className="btn btn-sm btn-outline-secondary"
+                                >
+                                    수정
+                                </Link>
+                                <Link
+                                    className="btn btn-sm btn-outline-danger mx-2"
+                                    href={route(
+                                        "board.question.delete",
+                                        question.id
+                                    )}
+                                    as="button"
+                                    method="delete"
+                                    onClick={confirmDelete}
+                                >
+                                    삭제
+                                </Link>
+                            </>
+                        )}
+
+                        <Link
+                            as="button"
+                            method="post"
+                            href={route("board.question.vote", question)}
+                            className="btn btn-sm btn-outline-secondary"
+                        >
+                            추천
+                            <span className="badge rounded-pill bg-success mx-1">
+                                {question.votes_count}
+                            </span>
+                        </Link>
+                    </div>
                 </div>
             </div>
 
@@ -106,31 +123,48 @@ export default function ({ auth, question }) {
                                 content={dayjs(answer.created_at).fromNow()}
                             />
                         </div>
-                        {answer.user.id === auth.user.id && (
-                            <div className="my-3">
-                                <Link
-                                    href={route("board.answer.edit", {
-                                        question,
-                                        answer,
-                                    })}
-                                    className="btn btn-sm btn-outline-secondary"
-                                >
-                                    수정
-                                </Link>
-                                <Link
-                                    href={route("board.answer.delete", {
-                                        question,
-                                        answer,
-                                    })}
-                                    method="delete"
-                                    as="button"
-                                    className="btn btn-sm btn-outline-danger mx-2"
-                                    onClick={confirmDelete}
-                                >
-                                    삭제
-                                </Link>
-                            </div>
-                        )}
+                        <div className="my-3">
+                            {answer.user.id === auth.user.id && (
+                                <>
+                                    <Link
+                                        href={route("board.answer.edit", {
+                                            question,
+                                            answer,
+                                        })}
+                                        className="btn btn-sm btn-outline-secondary"
+                                    >
+                                        수정
+                                    </Link>
+                                    <Link
+                                        href={route("board.answer.delete", {
+                                            question,
+                                            answer,
+                                        })}
+                                        method="delete"
+                                        as="button"
+                                        className="btn btn-sm btn-outline-danger mx-2"
+                                        onClick={confirmDelete}
+                                    >
+                                        삭제
+                                    </Link>
+                                </>
+                            )}
+
+                            <Link
+                                as="button"
+                                method="post"
+                                href={route("board.answer.vote", {
+                                    question,
+                                    answer,
+                                })}
+                                className="btn btn-sm btn-outline-secondary"
+                            >
+                                추천
+                                <span className="badge rounded-pill bg-success mx-1">
+                                    {answer.votes_count}
+                                </span>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             ))}

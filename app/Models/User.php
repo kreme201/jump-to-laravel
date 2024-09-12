@@ -56,4 +56,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Answer::class);
     }
+
+    public function question_votes()
+    {
+        return $this->belongsToMany(Question::class, 'board_question_votes');
+    }
+
+    public function answer_votes()
+    {
+        return $this->belongsToMany(Answer::class, 'board_answer_votes');
+    }
 }
